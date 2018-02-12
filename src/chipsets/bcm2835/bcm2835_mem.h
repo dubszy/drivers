@@ -81,35 +81,35 @@ extern struct mem_block axi_perf1;
 #define KERNEL_DATA_BASE    0x7FA000 // to 0x93F79B
 
 /* Peripherals: *_PERIPHERAL_BASE + Peripheral Address */
-#define TIMER_BASE          0x003000
+#define TIMER_BASE          0x003000 // to 0x003FFF
 #define USB0_BASE           0x006000 // to 0x006FFF
 #define DMA_BASE            0x007000 // to 0x007EFF
 #define AXI_PERF0_BASE      0x009800
 #define ARM_INT_BASE        0x00B000
-#define INT_CNTRLR_BASE     0x00B200
-#define MAILBOX_BASE        0x00B800
+#define INT_CNTRLR_BASE     0x00B200 // to 0x00B3FF
 #define VCHIQ_BASE          0x00B840 // to 0x00B84E
-#define MAILBOX_S_BASE      0x00B880 // to 0x00B8BF
-#define WATCHDOG_BASE       0x100000 // to 0x------ Watchdog
-#define GPCLOCK_BASE        0x101000 // to 0x------ General Purpose Clock
-#define RNG_BASE            0x104000 // to 0x------ Random Number Generator
+#define MAILBOX_BASE        0x00B880 // to 0x00B8BF
+#define WATCHDOG_BASE       0x100000 // to 0x100027
+#define GPCLOCK_BASE        0x101000 // to 0x102FFF  General Purpose Clock
+#define PCM0_BASE           0x101098 // to 0x101099
+#define RNG_BASE            0x104000 // to 0x10400F  Random Number Generator
 #define GPIO_BASE           0x200000 // to 0x2000B3
 #define UART0_BASE          0x201000 // to 0x201FFF
 #define SDHOST_BASE         0x202000 // to 0x2020FF
-#define PCM_BASE            0x203000
+#define PCM_BASE            0x203000 // to 0x20301F
 #define SPI0_BASE           0x204000 // to 0x204FFF
-#define BSC0_BASE           0x205000
-#define PXVALVE0_BASE       0x206000
-#define PXVALVE1_BASE       0x207000
+#define BSC0_BASE           0x205000 // to 0x205FFF
+#define PXVALVE0_BASE       0x206000 // to 0x2060FF
+#define PXVALVE1_BASE       0x207000 // to 0x2070FF
 #define DPI_BASE            0x208000
-#define DSI_BASE            0x209000
-#define PWM_BASE            0x20C000
+#define DSI0_BASE           0x209000 // to 0x209077
+#define PWM_BASE            0x20C000 // to 0x20C027
 #define BSC_SPI_BASE        0x214000
 #define AUX_BASE            0x215000 // to 0x215007
 #define UART1_BASE          0x215040 // to 0x21507F
 #define SPI1_BASE           0x215080 // to 0x2150BF
 #define SPI2_BASE           0x2150C0 // to 0x2150FF
-#define EMMC_BASE           0x300000
+#define EMMC_BASE           0x300000 // to 0x3000FF
 #define HVS_BASE            0x400000 // to 0x405FFF
 #define SMI_BASE            0x600000
 #define DSI1_BASE           0x700000 // to 0x70008B
