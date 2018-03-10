@@ -26,7 +26,7 @@ struct mem_block px_valve1      = {PHY_PERIPHERAL_BASE + PXVALVE1_BASE};
 struct mem_block dpi            = {PHY_PERIPHERAL_BASE + DPI_BASE};
 struct mem_block dsi            = {PHY_PERIPHERAL_BASE + DSI0_BASE};
 struct mem_block pwm            = {PHY_PERIPHERAL_BASE + PWM_BASE};
-struct mem_block bsc_spi        = {PHY_PERIPHERAL_BASE + BSC_SPI_BASE};
+struct mem_block bsc_spi        = {PHY_PERIPHERAL_BASE + SPI_BSC_SL_BASE};
 struct mem_block aux            = {PHY_PERIPHERAL_BASE + AUX_BASE};
 struct mem_block uart1          = {PHY_PERIPHERAL_BASE + UART1_BASE};
 struct mem_block spi1           = {PHY_PERIPHERAL_BASE + SPI1_BASE};
@@ -45,6 +45,8 @@ struct mem_block usb1           = {PHY_PERIPHERAL_BASE + USB1_BASE};
 struct mem_block v3d            = {PHY_PERIPHERAL_BASE + V3D_BASE};
 struct mem_block dma_15         = {PHY_PERIPHERAL_BASE + DMA_15_BASE};
 struct mem_block axi_perf1      = {PHY_PERIPHERAL_BASE + AXI_PERF1_BASE};
+
+uint8_t a;
 
 int mapmem(struct mem_block *m) {
     if ((m->mem_fd = open("/dev/mem", O_RDWR | O_SYNC)) < 0) {
