@@ -1,6 +1,6 @@
 
-#ifndef IOCTL_DUMMY_H
-#define IOCTL_DUMMY_H
+#ifndef _IOCTL_DUMMY_H_
+#define _IOCTL_DUMMY_H_
 
 #define _IOC_NRBITS	8
 #define _IOC_TYPEBITS	8
@@ -40,4 +40,4 @@
 #define _IOR(type,nr,size)	_IOC(_IOC_READ,(type),(nr),(_IOC_TYPECHECK(size)))
 #define _IOW(type,nr,size)	_IOC(_IOC_WRITE,(type),(nr),(_IOC_TYPECHECK(size)))
 
-#endif /* IOCTL_DUMMY_H */
+#endif /* _IOCTL_DUMMY_H_ */

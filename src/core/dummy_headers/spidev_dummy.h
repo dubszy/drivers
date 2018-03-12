@@ -1,12 +1,11 @@
 
-#ifndef SPIDEV_DUMMY_H
-#define SPIDEV_DUMMY_H
+#ifndef _SPIDEV_DUMMY_H_
+#define _SPIDEV_DUMMY_H_
 
 #if __has_include(<linux/spi/spidev.h>)
 #include <linux/spi/spidev.h>
 #else
 #warning "Using dummy spidev.h, SPI devices may not work properly"
-#endif
 
 #include "ioctl_dummy.h"
 #include "types_dummy.h"
@@ -55,4 +54,6 @@ struct spi_ioc_transfer {
 #define SPI_IOC_RD_MAX_SPEED_HZ		_IOR(SPI_IOC_MAGIC, 4, __u32)
 #define SPI_IOC_WR_MAX_SPEED_HZ		_IOW(SPI_IOC_MAGIC, 4, __u32)
 
-#endif /* SPIDEV_DUMMY_H */
+#endif /* __has_include(<linux/spi/spidev.h>) */
+
+#endif /* _SPIDEV_DUMMY_H_ */
