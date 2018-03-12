@@ -1,19 +1,18 @@
+#include <core/devices/interfacing/sysfs/gpio_sysfs.h>
 #include <errno.h>
 #include <stdio.h>
 
-#include "gpio.h"
-
-int gpio_export(int gpio_num) {
+int gpio_export(int gpio_num, const char *export_path) {
     FILE *export_fd;
     int write_res;
 
-    if ((export_fd = fopen(_export_path, "w")) == NULL) {
-        printf("Failed to open '%s' (error: %s)", _export_path, strerror(errno));
+    if ((export_fd = fopen(export_path, "w")) == NULL) {
+        printf("Failed to open '%s' (error: %s)", export_path, strerror(errno));
         return -1;
     }
 
     if ((write_res = fprintf(export_fd, "%d\n", gpio_num)) < 1) {
-        printf("Failed to write to '%s' (%d)", _export_path, write_res);
+        printf("Failed to write to '%s' (%d)", export_path, write_res);
         fclose(export_fd);
         return -2;
     }
@@ -22,17 +21,17 @@ int gpio_export(int gpio_num) {
     return 0;
 }
 
-int gpio_unexport(int gpio_num) {
+int gpio_unexport(int gpio_num, const char *unexport_path) {
     FILE *unexport_fd;
     int write_res;
 
-    if ((unexport_fd = fopen(_unexport_path, "w")) == NULL) {
-        printf("Failed to open '%s' (error: %s)", _export_path, strerror(errno));
+    if ((unexport_fd = fopen(unexport_path, "w")) == NULL) {
+        printf("Failed to open '%s' (error: %s)", unexport_path, strerror(errno));
         return -1;
     }
 
     if ((write_res = fprintf(unexport_fd, "%d\n", gpio_num)) < 1) {
-        printf("Failed to write to '%s' (%d)", _unexport_path, write_res);
+        printf("Failed to write to '%s' (%d)", unexport_path, write_res);
         fclose(unexport_fd);
         return -2;
     }
@@ -41,24 +40,24 @@ int gpio_unexport(int gpio_num) {
     return 0;
 }
 
-GPIODirection gpio_get_dir(int gpio_num) {
+GPIODirection gpio_get_dir(int gpio_num, const char *gpio_dir_path_fmt) {
     FILE *dir_fd;
     const char *path;
     char *text;
-    GPIODirection dir = GPIO_DIR_UNKNOWN;
+    GPIODirection dir = GPIODirectionUnknown;
 
-    sprintf(path, _gpio_dir_path_fmt, gpio_num);
+    sprintf(path, gpio_dir_path_fmt, gpio_num);
 
     if ((dir_fd = fopen(path, "r")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
-        return GPIO_DIR_UNKNOWN;
+        return dir;
     }
 
     while (fgets(text, 5, dir_fd) != NULL) {
         if (strncmp(text, "in", 2) == 0) {
-            dir = GPIO_DIR_IN;
+            dir = GPIODirectionIn;
         } else if (strncmp(text, "out", 3) == 0) {
-            dir = GPIO_DIR_OUT;
+            dir = GPIODirectionOut;
         }
     }
 
@@ -66,13 +65,13 @@ GPIODirection gpio_get_dir(int gpio_num) {
     return dir;
 }
 
-int gpio_set_dir(int gpio_num, GPIODirection dir) {
+int gpio_set_dir(int gpio_num, GPIODirection dir, const char *gpio_dir_path_fmt) {
     FILE *dir_fd;
     const char *path;
     int write_res;
     const char *dir_str;
 
-    sprintf(path, _gpio_dir_path_fmt, gpio_num);
+    sprintf(path, gpio_dir_path_fmt, gpio_num);
 
     if ((dir_fd = fopen(path, "w")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -80,10 +79,10 @@ int gpio_set_dir(int gpio_num, GPIODirection dir) {
     }
 
     switch (dir) {
-        case GPIO_DIR_IN:
+        case GPIODirectionIn:
             dir_str = "in";
             break;
-        case GPIO_DIR_OUT:
+        case GPIODirectionOut:
             dir_str = "out";
             break;
         default:
@@ -101,24 +100,24 @@ int gpio_set_dir(int gpio_num, GPIODirection dir) {
     return 0;
 }
 
-GPIOValue gpio_get_val(int gpio_num) {
+GPIOValue gpio_get_val(int gpio_num, const char *gpio_val_path_fmt) {
     FILE *val_fd;
     const char *path;
     char *text;
-    GPIOValue val = GPIO_VAL_UNKNOWN;
+    GPIOValue val = GPIOValueUnknown;
 
-    sprintf(path, _gpio_val_path_fmt, gpio_num);
+    sprintf(path, gpio_val_path_fmt, gpio_num);
 
     if ((val_fd = fopen(path, "r")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
-        return GPIO_VAL_UNKNOWN;
+        return val;
     }
 
     while (fgets(text, 3, val_fd) != NULL) {
         if (strncmp(text, "0", 1) == 0) {
-            val = GPIO_VAL_LOW;
+            val = GPIOValueLow;
         } else if (strncmp(text, "1", 1) == 0) {
-            val = GPIO_VAL_HIGH;
+            val = GPIOValueHigh;
         }
     }
 
@@ -126,13 +125,13 @@ GPIOValue gpio_get_val(int gpio_num) {
     return val;
 }
 
-int gpio_set_val(int gpio_num, GPIOValue val) {
+int gpio_set_val(int gpio_num, GPIOValue val, const char *gpio_val_path_fmt) {
     FILE *val_fd;
     const char *path;
     int write_res;
     const char *val_str;
 
-    sprintf(path, _gpio_val_path_fmt, gpio_num);
+    sprintf(path, gpio_val_path_fmt, gpio_num);
 
     if ((val_fd = fopen(path, "w")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -140,10 +139,10 @@ int gpio_set_val(int gpio_num, GPIOValue val) {
     }
 
     switch (val) {
-        case GPIO_VAL_LOW:
+        case GPIOValueLow:
             val_str = "0";
             break;
-        case GPIO_DIR_OUT:
+        case GPIOValueHigh:
             val_str = "1";
             break;
         default:
@@ -161,28 +160,28 @@ int gpio_set_val(int gpio_num, GPIOValue val) {
     return 0;
 }
 
-GPIOEdgeDetect gpio_get_edge_detect(int gpio_num) {
+GPIOEdgeDetect gpio_get_edge_detect(int gpio_num, const char *gpio_edge_path_fmt) {
     FILE *edge_fd;
     const char *path;
     char *text;
-    GPIOEdgeDetect edge = GPIO_EDGE_UNKNOWN;
+    GPIOEdgeDetect edge = GPIOEdgeDetectUnknown;
 
-    sprintf(path, _gpio_edge_path_fmt, gpio_num);
+    sprintf(path, gpio_edge_path_fmt, gpio_num);
 
     if ((edge_fd = fopen(path, "r")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
-        return GPIO_EDGE_UNKNOWN;
+        return edge;
     }
 
     while (fgets(text, 9, edge_fd) != NULL) {
         if (strncmp(text, "none", 6) == 0) {
-            edge = GPIO_EDGE_NONE;
+            edge = GPIOEdgeDetectNone;
         } else if (strncmp(text, "rising", 8) == 0) {
-            edge = GPIO_EDGE_RISING;
+            edge = GPIOEdgeDetectRising;
         } else if (strncmp(text, "falling", 9) == 0) {
-            edge = GPIO_EDGE_FALLING;
+            edge = GPIOEdgeDetectFalling;
         } else if (strncmp(text, "both", 6) == 0) {
-            edge = GPIO_EDGE_BOTH;
+            edge = (GPIOEdgeDetectRising | GPIOEdgeDetectFalling);
         }
     }
 
@@ -190,13 +189,13 @@ GPIOEdgeDetect gpio_get_edge_detect(int gpio_num) {
     return edge;
 }
 
-int gpio_set_edge_detect(int gpio_num, GPIOEdgeDetect edge_detect) {
+int gpio_set_edge_detect(int gpio_num, GPIOEdgeDetect edge_detect, const char *gpio_edge_path_fmt) {
     FILE *edge_fd;
     const char *path;
     int write_res;
     const char *edge_str;
 
-    sprintf(path, _gpio_edge_path_fmt, gpio_num);
+    sprintf(path, gpio_edge_path_fmt, gpio_num);
 
     if ((edge_fd = fopen(path, "w")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -204,16 +203,16 @@ int gpio_set_edge_detect(int gpio_num, GPIOEdgeDetect edge_detect) {
     }
 
     switch (edge_detect) {
-        case GPIO_EDGE_NONE:
+        case GPIOEdgeDetectNone:
             edge_str = "none";
             break;
-        case GPIO_EDGE_RISING:
+        case GPIOEdgeDetectRising:
             edge_str = "rising";
             break;
-        case GPIO_EDGE_FALLING:
+        case GPIOEdgeDetectFalling:
             edge_str = "falling";
             break;
-        case GPIO_EDGE_BOTH:
+        case (GPIOEdgeDetectRising | GPIOEdgeDetectFalling):
             edge_str = "both";
             break;
         default:
