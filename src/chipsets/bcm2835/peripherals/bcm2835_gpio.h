@@ -1,7 +1,12 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_GPIO_H_
 #define _BCM2835_GPIO_H_
 
 #include "../bcm2835_mem.h"
+
+#define GPIO_MIN    0
+#define GPIO_MAX    53
 
 /* GPIO (0x7E200000 - 0x7E2000B3) */
 /*
@@ -55,31 +60,31 @@
 #define __TEST      0xB0 // Test (R/W)
 
 typedef enum {
-    GPIO_FSEL_INPUT     = 0,
-    GPIO_FSEL_OUTPUT    = 1,
-    GPIO_FSEL_ALT_5     = 2,
-    GPIO_FSEL_ALT_4     = 3,
-    GPIO_FSEL_ALT_0     = 4,
-    GPIO_FSEL_ALT_1     = 5,
-    GPIO_FSEL_ALT_2     = 6,
-    GPIO_FSEL_ALT_3     = 7
-} GPIOFSELControl;
+    GPIOFSELInput  = 0,
+    GPIOFSELOutput = 1,
+    GPIOFSELAlt5   = 2,
+    GPIOFSELAlt4   = 3,
+    GPIOFSELAlt0   = 4,
+    GPIOFSELAlt1   = 5,
+    GPIOFSELAlt2   = 6,
+    GPIOFSELAlt3   = 7
+} GPIOFSEL;
 
 typedef enum {
-    GPEDS_REN = GPREN0,
-    GPEDS_FEN = GPFEN0,
-    GPEDS_HEN = GPHEN0,
-    GPEDS_LEN = GPLEN0,
-    GPEDS_AREN = GPAREN0,
-    GPEDS_AFEN = GPAFEN0
-} GPIOEDSControl;
+    GPIOEDSRisingEdge       = GPREN0,
+    GPIOEDSFallingEdge      = GPFEN0,
+    GPIOEDSHigh             = GPHEN0,
+    GPIOEDSLow              = GPLEN0,
+    GPIOEDSAsyncRisingEdge  = GPAREN0,
+    GPIOEDSAsyncFallingEdge = GPAFEN0
+} GPIOEDS;
 
 typedef enum {
-    GPPUD_OFF  = 0,
-    GPPUD_DOWN = 1,
-    GPPUD_UP   = 2,
-    GPPUD_RSVD = 3
-} GPIOPUDControl;
+    GPIOPUDOff  = 0,
+    GPIOPUDDown = 1,
+    GPIOPUDUP   = 2,
+    GPIOPUDRsvd = 3
+} GPIOPUD;
 
 /* GPFSELx */
 #define gpio_fsel_read(g)               *((gpio.addr + GPFSEL0 + ((g) / 10)) >> (((g) % 10) * 3) & 7)
@@ -96,9 +101,9 @@ typedef enum {
 #define gpio_eds_type_read(g,e)         *(gpio.addr + e) &= (1 << (g))
 #define gpio_eds_type_write(g,e)        *(gpio.addr + e) |= (1 << (g))
 /* GPPUD, GPPUDCLKx */
-#define gpio_pull_up_down_read(c)       *(gpio.addr + GPPUD) &= 3
-#define gpio_pull_up_down_write(c)      *(gpio.addr + GPPUD) = (c)
-#define gpio_pull_up_down_clk_read(g)   *(gpio.addr + GPPUDCLK0)
+#define gpio_pull_up_down_read(g, c)    *(gpio.addr + GPPUD) &= (3 << ((g) * 2))
+#define gpio_pull_up_down_write(g, c)   *(gpio.addr + GPPUD) = ((c) << ((g) * 2))
+#define gpio_pull_up_down_clk_read(g)   *(gpio.addr + GPPUDCLK0) &= (1 << (g))
 #define gpio_pull_up_down_clk_write(g)  *(gpio.addr + GPPUDCLK0) |= (1 << (g))
 
 #define NONE            "NONE"
@@ -350,3 +355,5 @@ struct bcm2835_alt_func gpio_alt_func_map[54] = {
 };
 
 #endif /* _BCM2835_GPIO_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

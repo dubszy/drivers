@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_SPI1_2_H_
 #define _BCM2835_SPI1_2_H_
 
@@ -15,3 +17,5 @@
 #define AUX_SPI_TXHOLD  0x30
 
 #endif /* _BCM2835_SPI1_2_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_TIMER_H_
 #define _BCM2835_TIMER_H_
 
@@ -28,3 +30,5 @@
 #define timer_c_read(c)   *(timer.addr + c) &= 0xFFFFFFFF
 
 #endif /* _BCM2835_TIMER_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

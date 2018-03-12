@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_EMMC_H_
 #define _BCM2835_EMMC_H_
 
@@ -33,3 +35,5 @@
 #define EMMC_SLOTISR_VER    0xFC // Slot Interrupt Status and Version
 
 #endif /* _BCM2835_EMMC_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

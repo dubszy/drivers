@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_BSC_H_
 #define _BCM2835_BSC_H_
 
@@ -19,3 +21,5 @@
 #define BSC_CLKT    0x1C // Clock Stretch Timeout
 
 #endif /* _BCM2835_BSC_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

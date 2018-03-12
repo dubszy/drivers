@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_SPI0_H_
 #define _BCM2835_SPI0_H_
 
@@ -13,3 +15,5 @@
 #define SPI_DC      0x14 // DMA DREQ Controls
 
 #endif /* _BCM2835_SPI0_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

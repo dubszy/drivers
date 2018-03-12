@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_PCM_H_
 #define _BCM2835_PCM_H_
 
@@ -17,3 +19,5 @@
 #define PCM_GRAY                    0x20 // Gray Mode Control
 
 #endif /* _BCM2835_PCM_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

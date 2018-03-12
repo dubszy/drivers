@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_PWM_H_
 #define _BCM2835_PWM_H_
 
@@ -14,4 +16,6 @@
 #define PWM_RNG2    0x20 // Channel 2 Range
 #define PWM_DAT2    0x24 // Channel 2 Data
 
-#endif
+#endif /* _BCM2835_PWM_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

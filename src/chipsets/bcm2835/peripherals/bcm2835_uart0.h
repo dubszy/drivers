@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_UART0_H_
 #define _BCM2835_UART0_H_
 
@@ -24,4 +26,6 @@
 #define UART_ITOP   0x88 // Integration test output
 #define UART_TDR    0x8C // Test Data
 
-#endif
+#endif /* _BCM2835_UART0_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

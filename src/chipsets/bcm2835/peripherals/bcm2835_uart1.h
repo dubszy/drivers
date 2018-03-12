@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_UART1_H_
 #define _BCM2835_UART1_H_
 
@@ -18,3 +20,5 @@
 #define MU_BAUD     0x28
 
 #endif /* _BCM2835_UART1_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

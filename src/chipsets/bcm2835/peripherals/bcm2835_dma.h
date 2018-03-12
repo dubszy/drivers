@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_DMA_H_
 #define _BCM2835_DMA_H_
 
@@ -38,3 +40,5 @@
 #define DMA_DEBUG       0x20 // Debug
 
 #endif /* _BCM2835_DMA_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

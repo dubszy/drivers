@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_CM_H_
 #define _BCM2835_CM_H_
 
@@ -76,4 +78,6 @@ typedef enum {
  */
 #define CM_PASSWORD     0x5A << 24
 
-#endif
+#endif /* _BCM2835_CM_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_HDMI_H_
 #define _BCM2835_HDMI_H_
 
@@ -8,3 +10,5 @@
 /* HDMI1 (0x7E902000 - 0x7E9025FF) */
 
 #endif /* _BCM2835_HDMI_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

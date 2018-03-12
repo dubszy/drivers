@@ -1,59 +1,12 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_MEM_H_
 #define _BCM2835_MEM_H_
 
-#define BLOCK_SIZE 1024
+#include <stdint.h>
+#include <stdio.h>
 
-struct mem_block {
-    unsigned long addr_p;
-    int mem_fd;
-    void *map;
-    volatile unsigned int addr;
-};
-
-int mapmem(struct mem_block *m);
-void unmapmem(struct mem_block *m);
-
-extern struct mem_block timer;
-extern struct mem_block usb0;
-extern struct mem_block dma;
-extern struct mem_block axi_perf0;
-extern struct mem_block arm_int;
-extern struct mem_block int_controller;
-extern struct mem_block mailbox;
-extern struct mem_block vchiq;
-extern struct mem_block watchdog;
-extern struct mem_block gp_clock;
-extern struct mem_block rng;
-extern struct mem_block gpio;
-extern struct mem_block uart0;
-extern struct mem_block sdhost;
-extern struct mem_block pcm;
-extern struct mem_block spi0;
-extern struct mem_block bsc0;
-extern struct mem_block px_valve0;
-extern struct mem_block px_valve1;
-extern struct mem_block dpi;
-extern struct mem_block dsi;
-extern struct mem_block pwm;
-extern struct mem_block bsc_spi;
-extern struct mem_block aux;
-extern struct mem_block uart1;
-extern struct mem_block spi1;
-extern struct mem_block spi2;
-extern struct mem_block emmc;
-extern struct mem_block hvs;
-extern struct mem_block smi;
-extern struct mem_block dsi1;
-extern struct mem_block bsc1;
-extern struct mem_block bsc2;
-extern struct mem_block vec;
-extern struct mem_block px_valve2;
-extern struct mem_block hdmi0;
-extern struct mem_block hdmi1;
-extern struct mem_block usb1;
-extern struct mem_block v3d;
-extern struct mem_block dma_15;
-extern struct mem_block axi_perf1;
+#define PERIPHERAL_BLOCK_SIZE 1024
 
 /*
  * Check for ARMv7 because:
@@ -83,7 +36,21 @@ extern struct mem_block axi_perf1;
 /* Peripherals: *_PERIPHERAL_BASE + Peripheral Address */
 #define TIMER_BASE          0x003000 // to 0x003FFF  System Timer
 #define USB0_BASE           0x006000 // to 0x006FFF  USB
-#define DMA_BASE            0x007000 // to 0x007EFF  DMA Controller
+#define DMA0_BASE           0x007000 // to 0x0070FF  DMA Controller (Channel 0)
+#define DMA1_BASE           0x007100 // to 0x0071FF  DMA Controller (Channel 1)
+#define DMA2_BASE           0x007200 // to 0x0072FF  DMA Controller (Channel 2)
+#define DMA3_BASE           0x007300 // to 0x0073FF  DMA Controller (Channel 3)
+#define DMA4_BASE           0x007400 // to 0x0074FF  DMA Controller (Channel 4)
+#define DMA5_BASE           0x007500 // to 0x0075FF  DMA Controller (Channel 5)
+#define DMA6_BASE           0x007600 // to 0x0076FF  DMA Controller (Channel 6)
+#define DMA7_BASE           0x007700 // to 0x0077FF  DMA Controller (Channel 7)
+#define DMA8_BASE           0x007800 // to 0x0078FF  DMA Controller (Channel 8)
+#define DMA9_BASE           0x007900 // to 0x0079FF  DMA Controller (Channel 9)
+#define DMA10_BASE          0x007A00 // to 0x007AFF  DMA Controller (Channel 10)
+#define DMA11_BASE          0x007B00 // to 0x007BFF  DMA Controller (Channel 11)
+#define DMA12_BASE          0x007C00 // to 0x007CFF  DMA Controller (Channel 12)
+#define DMA13_BASE          0x007D00 // to 0x007DFF  DMA Controller (Channel 13)
+#define DMA14_BASE          0x007E00 // to 0x007EFF  DMA Controller (Channel 14)
 #define AXI_PERF0_BASE      0x009800 //              Advanced eXtensible Interface Performance
 #define ARM_INT_BASE        0x00B000 //              ARM Interrupts
 #define INT_CNTRLR_BASE     0x00B200 // to 0x00B3FF  Interrupt Controller
@@ -121,7 +88,12 @@ extern struct mem_block axi_perf1;
 #define HDMI1_BASE          0x902000 // to 0x9025FF  HDMI
 #define USB1_BASE           0x980000 // to 0x98FFFF  USB
 #define V3D_BASE            0xC00000 // to 0xC00FFF  VideoCore 3D
-#define DMA_15_BASE         0xE05000 //              DMA Controller (Channel 15)
+#define DMA15_BASE          0xE05000 //              DMA Controller (Channel 15)
 #define AXI_PERF1_BASE      0xE08000 //              AXI Performance
 
+/* Paddings */
+#define DMA_PAD             0x100
+
 #endif /* _BCM2835_MEM_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_MAILBOX_H_
 #define _BCM2835_MAILBOX_H_
 
@@ -6,3 +8,5 @@
 /* Mailbox (0x7E00B880 - 0x7E00B8BF) */
 
 #endif /* _BCM2835_MAILBOX_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

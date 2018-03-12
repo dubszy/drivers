@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_BSC_SPI_H_
 #define _BCM2835_BSC_SPI_H_
 
@@ -23,3 +25,5 @@
 #define BSC_DEBUG2  0x3C // SPI Debug
 
 #endif /* _BCM2835_BSC_SPI_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

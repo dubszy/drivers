@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_PXVALVE_H_
 #define _BCM2835_PXVALVE_H_
 
@@ -10,3 +12,5 @@
 /* Pixel Valve 2 (0x7E807000 - 0x7E8070FF) */
 
 #endif /* _BCM2835_PXVALVE_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

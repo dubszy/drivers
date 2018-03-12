@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_ARM_INT_H_
 #define _BCM2835_ARM_INT_H_
 
@@ -49,3 +51,5 @@
 #define ARM_IRQ_UNUSED          0x15 // Unused
 
 #endif /* _BCM2835_ARM_INT_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

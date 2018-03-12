@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_USB1_H_
 #define _BCM2835_USB1_H_
 
@@ -11,3 +13,5 @@
 #define USB_VBUS_DRV    0x88 // VBUS and other miscellaneous controls
 
 #endif /* _BCM2835_USB1_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

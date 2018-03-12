@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_WATCHDOG_H_
 #define _BCM2835_WATCHDOG_H_
 
@@ -6,3 +8,5 @@
 /* Watchdog (0x7E100000 - 0x7E100027) */
 
 #endif /* _BCM2835_WATCHDOG_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */

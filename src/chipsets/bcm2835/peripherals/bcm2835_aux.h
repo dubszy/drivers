@@ -1,3 +1,5 @@
+#ifdef _CHIPSET_BCM2835_
+
 #ifndef _BCM2835_AUX_H_
 #define _BCM2835_AUX_H_
 
@@ -14,3 +16,5 @@
 #define AUX_ENABLES 0x04 // Auxiliary enables
 
 #endif /* _BCM2835_AUX_H_ */
+
+#endif /* _CHIPSET_BCM2835_ */
