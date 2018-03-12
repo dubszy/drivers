@@ -1,7 +1,5 @@
 #include "Device.hpp"
 
-using namespace Core;
-
 /**
  * Get the name for this device
  * This is purely informational; does not communicate with any device

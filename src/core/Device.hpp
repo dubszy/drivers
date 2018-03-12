@@ -3,19 +3,18 @@
 
 #include <string>
 
+#include <core/system/system_context.h>
+
 using namespace std;
 
-namespace Core {
+class Device {
 
-	class Device {
+protected:
+	string *name;
 
-	protected:
-		string *name;
-
-	public:
-		string *getName();
-		void setName(string *name);
-	};
-}
+public:
+	string *getName();
+	void setName(string *name);
+};
 
 #endif /* DEVICE_HPP */
