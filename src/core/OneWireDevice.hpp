@@ -98,7 +98,7 @@ private:
 public:
     OneWireDevice(OneWireFamilyCode family_code, uint8_t *addr);
 
-    virtual ~OneWireDevice();
+    ~OneWireDevice();
 
     int read(char *buf, int length);
 };
