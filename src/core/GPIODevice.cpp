@@ -1,5 +1,3 @@
-#include <errno.h>
-
 #include "GPIODevice.hpp"
 #include <core/devices/interfacing/sysfs/GPIOSYSFSDevice.hpp>
 

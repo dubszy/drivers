@@ -5,18 +5,24 @@
 
 #include "Device.hpp"
 
-namespace Core {
-	class SPIDevice : Device {
+class SPIDevice : public Device {
 
-	private:
-		int fd;
-		int channel;
-		uint32_t speed;
+private:
+	int fd_;
+	int channel_;
+	uint32_t speed_;
+	uint8_t bitsPerWord_;
 
-	public:
-		void init(int channel, int speed);
-		int transact(unsigned char *data, int length);
-	};
-}
+	int transact_(void *data, int length);
+
+public:
+	SPIDevice(int channel, int speed, uint8_t bitsPerWord);
+
+	int transact(uint8_t *data, int length);
+	int transact16(uint16_t *data, int length);
+	int transact32(uint32_t *data, int length);
+	int transact64(uint64_t *data, int length);
+};
+
 
 #endif /* SPI_DEVICE_HPP */
