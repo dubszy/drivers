@@ -15,3 +15,5 @@ private:
 public:
     DS18B20(TemperatureScale scale = ScaleCelsius, uint8_t decimal_precision = 2, uint8_t *device_addr);
 };
+
+#endif /* _DS18B20_HPP_ */

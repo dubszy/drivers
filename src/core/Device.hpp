@@ -1,5 +1,5 @@
-#ifndef DEVICE_HPP
-#define DEVICE_HPP
+#ifndef _DEVICE_HPP_
+#define _DEVICE_HPP_
 
 #include <string>
 
@@ -23,4 +23,4 @@ public:
 	void setName(string name_);
 };
 
-#endif /* DEVICE_HPP */
+#endif /* _DEVICE_HPP_ */
