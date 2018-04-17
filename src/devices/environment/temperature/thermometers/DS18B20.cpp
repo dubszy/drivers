@@ -3,20 +3,15 @@
 
 #include "DS18B20.hpp"
 
-DS18B20::DS18B20(TemperatureScale scale, uint8_t decimal_precision, uint8_t *device_addr)
-  : scale_(scale), precision_(decimal_precision) {
-    OneWireDevice(OWFC_DS18B20, device_addr);
-}
-
 float DS18B20::readTempFromDevice_() {
 
     const char        *pattern = "t[=]\\d+";
-    static char       buf[75];
-    static regex_t    regex;
-    static char       regex_buf[8];
-    static regmatch_t matches[2]; // Size must be 2 because matches[0] will be the whole string
-    static char       error_buf[128];
-    static float      temp;
+    char       buf[75];
+    regex_t    regex;
+    char       regex_buf[8];
+    regmatch_t matches[2]; // Size must be 2 because matches[0] will be the whole string
+    char       error_buf[128];
+    float      temp;
 
     OneWireDevice::read(buf, 75);
 

@@ -20,7 +20,7 @@ public:
 	Device(string name) : name_(name) {};
 
 	string getName();
-	void setName(string name_);
+	void setName(string name);
 };
 
 #endif /* _DEVICE_HPP_ */
