@@ -15,10 +15,10 @@ typedef struct {
 } IPAddress;
 
 in_addr_t ipton(IPAddress ipAddress) {
-    return ipAddress.a << 24 +
-           ipAddress.b << 16 +
-           ipAddress.c << 8 +
-           ipAddress.d;
+    return (ipAddress.a << 24) +
+           (ipAddress.b << 16) +
+           (ipAddress.c << 8) +
+           (ipAddress.d);
 }
 
 int ip_address_to_cstr(IPAddress ipAddress, char *cstr) {

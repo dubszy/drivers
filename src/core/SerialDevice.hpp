@@ -3,7 +3,7 @@
 
 #include "Device.hpp"
 
-class SerialDevice : Device {
+class SerialDevice : public Device {
 private:
         SerialDevice(const SerialDevice&);
         SerialDevice& operator=(const SerialDevice&);

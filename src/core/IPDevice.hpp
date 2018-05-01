@@ -5,7 +5,7 @@
 
 #include "Device.hpp"
 
-class IPDevice : Device {
+class IPDevice : public Device {
 
     private:
         IPAddress ipAddress;

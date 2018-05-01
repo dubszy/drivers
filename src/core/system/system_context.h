@@ -2,6 +2,8 @@
 #define _SYSTEM_CONTEXT_H_
 
 #include <core/types/board_config_types.h>
+#include <stdio.h>
+#include <memory.h>
 
 const char *sc_sysfs_bus_dir                    = "bus";
 const char *sc_sysfs_class_dir                  = "class";
@@ -30,33 +32,25 @@ SystemContext *getGlobalSystemContext();
 int setGlobalSystemContext(SystemContext context);
 int createGlobalSystemContext();
 
-inline char *sc_sysfs_gpio_path() {
-    char *path = strcpy(path, getGlobalSystemContext()->sysfs_mount_path);
-    path = strcat(path, "/");
-    path = strcat(path, sc_sysfs_class_dir);
-    path = strcat(path, "/");
-    path = strcat(path, sc_sysfs_class_gpio_dir);
-    path = strcat(path, "/");
-    return path;
+inline void sc_sysfs_gpio_path(char *path) {
+    sprintf(path, "/%s/%s/%s/",
+            getGlobalSystemContext()->sysfs_mount_path,
+            sc_sysfs_class_dir,
+            sc_sysfs_class_gpio_dir);
 }
 
-inline char *sc_sysfs_gpio_num_path_fmt() {
-    char *path = "/";
-    path = strcpy(path, sc_sysfs_gpio_path());
-    path = strcat(path, "/");
-    path = strcat(path, sc_sysfs_class_gpio_fmt);
-    path = strcat(path, "/");
-    return path;
+void sc_sysfs_gpio_num_path_fmt(char *path) {
+    char gpio_path[32];
+    sc_sysfs_gpio_path(gpio_path);
+    sprintf(path, "/%s/%s/", gpio_path, sc_sysfs_class_gpio_fmt);
 }
 
-inline char *sc_sysfs_w1_path() {
-    char *path = strcpy(path, getGlobalSystemContext()->sysfs_mount_path);
-    path = strcat(path, "/");
-    path = strcat(path, sc_sysfs_bus_dir);
-    path = strcat(path, "/");
-    path = strcat(path, sc_sysfs_bus_w1_devices_dir);
-    path = strcat(path, "/");
-    return path;
+inline char *sc_sysfs_w1_path(char *path) {
+    sprintf(path, "/%s/%s/%s/%s/",
+            getGlobalSystemContext()->sysfs_mount_path,
+            sc_sysfs_bus_dir,
+            sc_sysfs_bus_w1_dir,
+            sc_sysfs_bus_w1_devices_dir);
 }
 
 #endif /* _SYSTEM_CONTEXT_H_ */

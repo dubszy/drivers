@@ -17,6 +17,9 @@ protected:
 	string name_;
 
 public:
+	Device() {
+	    name_ = "Device";
+	}
 	Device(string name) : name_(name) {};
 
 	string getName();
