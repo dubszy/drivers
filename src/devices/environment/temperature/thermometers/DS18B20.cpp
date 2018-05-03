@@ -1,7 +1,7 @@
 #include <regex.h>
 #include <thread>
 
-#include "DS18B20.hpp"
+#include <devices/environment/temperature/thermometers/DS18B20.hpp>
 
 float DS18B20::readTempFromDevice_() {
 
