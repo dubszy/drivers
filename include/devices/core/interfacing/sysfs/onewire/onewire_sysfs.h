@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-int onewire_read(char *buf, int len, const char *onewire_dir_path);
+size_t onewire_read(char *buf, size_t len, const char *onewire_dir_path);
 
 #endif /* _ONEWIRE_SYSFS_H_ */

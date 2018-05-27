@@ -5,52 +5,23 @@
 #include <stdio.h>
 #include <memory.h>
 
-const char *sc_sysfs_bus_dir                    = "bus";
-const char *sc_sysfs_class_dir                  = "class";
+#define SC_PATH_SYSFS_MOUNT                     "/sys"
 
-const char *sc_sysfs_class_gpio_dir             = "gpio";
-const char *sc_sysfs_class_gpio_fmt             = "gpio%d";
-const char *sc_sysfs_class_gpio_export_file     = "export";
-const char *sc_sysfs_class_gpio_unexport_file   = "unexport";
-const char *sc_sysfs_class_gpio_direction_file  = "direction";
-const char *sc_sysfs_class_gpio_edge_file       = "edge";
-const char *sc_sysfs_class_gpio_value_file      = "value";
+#define SC_PATH_SYSFS_BUS                       SC_PATH_SYSFS_MOUNT"/bus"
 
-const char *sc_sysfs_bus_w1_dir                 = "w1";
-const char *sc_sysfs_bus_w1_devices_dir         = "devices";
-const char *sc_sysfs_bus_w1_slave_file          = "w1-slave";
+#define SC_PATH_SYSFS_BUS_W1                    SC_PATH_SYSFS_BUS"/w1"
+#define SC_PATH_SYSFS_BUS_W1_DEVICES            SC_PATH_SYSFS_BUS_W1"/devices"
+#define SC_PATH_SYSFS_BUS_W1_DEVICE_N           SC_PATH_SYSFS_BUS_W1_DEVICES"/%s"
+#define SC_PATH_SYSFS_BUS_W1_DEVICE_N_SLAVE     SC_PATH_SYSFS_BUS_W1_DEVICE_N"/w1-slave"
 
-typedef struct {
-    BoardConfig board_config;
-    const char *dev_mount_path;
-    const char *sysfs_mount_path;
-} SystemContext;
+#define SC_PATH_SYSFS_CLASS                     SC_PATH_SYSFS_MOUNT"/class"
 
-SystemContext *globalSystemContext;
-
-SystemContext *getGlobalSystemContext();
-int setGlobalSystemContext(SystemContext context);
-int createGlobalSystemContext();
-
-inline void sc_sysfs_gpio_path(char *path) {
-    sprintf(path, "/%s/%s/%s/",
-            getGlobalSystemContext()->sysfs_mount_path,
-            sc_sysfs_class_dir,
-            sc_sysfs_class_gpio_dir);
-}
-
-inline void sc_sysfs_gpio_num_path_fmt(char *path) {
-    char gpio_path[32];
-    sc_sysfs_gpio_path(gpio_path);
-    sprintf(path, "/%s/%s/", gpio_path, sc_sysfs_class_gpio_fmt);
-}
-
-inline void sc_sysfs_w1_path(char *path) {
-    sprintf(path, "/%s/%s/%s/%s/",
-            getGlobalSystemContext()->sysfs_mount_path,
-            sc_sysfs_bus_dir,
-            sc_sysfs_bus_w1_dir,
-            sc_sysfs_bus_w1_devices_dir);
-}
+#define SC_PATH_SYSFS_CLASS_GPIO                SC_PATH_SYSFS_CLASS"/gpio"
+#define SC_PATH_SYSFS_CLASS_GPIO_N              SC_PATH_SYSFS_CLASS_GPIO"/gpio%d"
+#define SC_PATH_SYSFS_CLASS_GPIO_N_DIRECTION    SC_PATH_SYSFS_CLASS_GPIO_N"/direction"
+#define SC_PATH_SYSFS_CLASS_GPIO_N_EDGE         SC_PATH_SYSFS_CLASS_GPIO_N"/edge"
+#define SC_PATH_SYSFS_CLASS_GPIO_N_VALUE        SC_PATH_SYSFS_CLASS_GPIO_N"/value"
+#define SC_PATH_SYSFS_CLASS_GPIO_EXPORT         SC_PATH_SYSFS_CLASS_GPIO"/export"
+#define SC_PATH_SYSFS_CLASS_GPIO_UNEXPORT       SC_PATH_SYSFS_CLASS_GPIO"/unexport"
 
 #endif /* _SYSTEM_CONTEXT_H_ */

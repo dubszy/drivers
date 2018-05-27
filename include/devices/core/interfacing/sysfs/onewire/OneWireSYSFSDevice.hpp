@@ -3,17 +3,27 @@
 
 #include <devices/core/OneWireDevice.hpp>
 
+#include <logger/c++/Logger.hpp>
+
 class OneWireDevice::OneWireDeviceImpl {
 
-private:
-    OneWireFamilyCode family_code_;
-    string addr_; // Address for the device (48 bits long, 16MSB are ignored)
-    char *device_dir_;
-
 public:
-    OneWireDeviceImpl(OneWireFamilyCode family_code, string addr);
+    OneWireDeviceImpl(OneWireFamilyCode familyCode, string address);
 
-    int read(char *buf, int length);
+    size_t read(char *buf, size_t length);
+
+    OneWireFamilyCode getFamilyCode();
+    string getAddress();
+    string getDeviceDirectory();
+
+    string toString();
+
+private:
+    OneWireFamilyCode familyCode_;
+    string address_;
+    string deviceDirectory_;
+
+    Logger *log = Logger::forClass<OneWireDevice::OneWireDeviceImpl>(LogLevelInfo);
 };
 
 #endif /* _ONE_WIRE_SYSFS_DEVICE_HPP_ */

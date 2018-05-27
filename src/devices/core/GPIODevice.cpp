@@ -2,7 +2,7 @@
 #include <devices/core/interfacing/sysfs/gpio/GPIOSYSFSDevice.hpp>
 #include <utility>
 
-GPIODevice::GPIODevice(string name, int gpio_num)
+GPIODevice::GPIODevice(string name, unsigned int gpio_num)
   : p_impl_(new GPIODeviceImpl(gpio_num)), Device(std::move(name)) {
 #if defined(GPIO_MIN) && defined(GPIO_MAX)
     if (gpio_num > GPIO_MAX || gpio_num < GPIO_MIN) {

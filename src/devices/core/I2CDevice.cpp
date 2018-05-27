@@ -3,8 +3,10 @@
 #include <cerrno>
 #include <cstdio>
 #include <fcntl.h>
+#include <utility>
 
-I2CDevice::I2CDevice(string name, string deviceFilePath, int deviceId) {
+I2CDevice::I2CDevice(string name, string deviceFilePath, int deviceId)
+  : Device(std::move(name)) {
 	int fd;
 
 	if ((fd = open(deviceFilePath.c_str(), O_RDWR)) < 0) {

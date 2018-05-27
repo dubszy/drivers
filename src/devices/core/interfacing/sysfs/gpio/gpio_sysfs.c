@@ -1,6 +1,7 @@
 #include <devices/core/interfacing/sysfs/gpio/gpio_sysfs.h>
 #include <errno.h>
 #include <stdio.h>
+#include <memory.h>
 
 int gpio_export(int gpio_num, const char *export_path) {
     FILE *export_fd;
@@ -42,11 +43,13 @@ int gpio_unexport(int gpio_num, const char *unexport_path) {
 
 GPIODirection gpio_get_dir(int gpio_num, const char *gpio_dir_path_fmt) {
     FILE *dir_fd;
+    char pathBuffer[128];
     const char *path;
-    char *text;
+    char text[5];
     GPIODirection dir = GPIODirectionUnknown;
 
-    sprintf(path, gpio_dir_path_fmt, gpio_num);
+    sprintf(pathBuffer, gpio_dir_path_fmt, gpio_num);
+    path = pathBuffer;
 
     if ((dir_fd = fopen(path, "r")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -67,11 +70,13 @@ GPIODirection gpio_get_dir(int gpio_num, const char *gpio_dir_path_fmt) {
 
 int gpio_set_dir(int gpio_num, GPIODirection dir, const char *gpio_dir_path_fmt) {
     FILE *dir_fd;
+    char pathBuffer[128];
     const char *path;
     int write_res;
-    const char *dir_str;
+    const char *direction;
 
-    sprintf(path, gpio_dir_path_fmt, gpio_num);
+    sprintf(pathBuffer, gpio_dir_path_fmt, gpio_num);
+    path = pathBuffer;
 
     if ((dir_fd = fopen(path, "w")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -80,20 +85,20 @@ int gpio_set_dir(int gpio_num, GPIODirection dir, const char *gpio_dir_path_fmt)
 
     switch (dir) {
         case GPIODirectionIn:
-            dir_str = "in";
+            direction = "in";
             break;
         case GPIODirectionOut:
-            dir_str = "out";
+            direction = "out";
             break;
         default:
             printf("Invalid direction: %d", dir);
-            break;
+            return -2;
     }
 
-    if ((write_res = fprintf(dir_fd, "%s\n", dir_str)) < 1) {
+    if ((write_res = fprintf(dir_fd, "%s\n", direction)) < 1) {
         printf("Failed to write to '%s' (%d)", path, write_res);
         fclose(dir_fd);
-        return -2;
+        return -3;
     }
 
     fclose(dir_fd);
@@ -102,11 +107,13 @@ int gpio_set_dir(int gpio_num, GPIODirection dir, const char *gpio_dir_path_fmt)
 
 GPIOValue gpio_get_val(int gpio_num, const char *gpio_val_path_fmt) {
     FILE *val_fd;
+    char pathBuffer[128];
     const char *path;
-    char *text;
+    char text[3];
     GPIOValue val = GPIOValueUnknown;
 
-    sprintf(path, gpio_val_path_fmt, gpio_num);
+    sprintf(pathBuffer, gpio_val_path_fmt, gpio_num);
+    path = pathBuffer;
 
     if ((val_fd = fopen(path, "r")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -127,11 +134,13 @@ GPIOValue gpio_get_val(int gpio_num, const char *gpio_val_path_fmt) {
 
 int gpio_set_val(int gpio_num, GPIOValue val, const char *gpio_val_path_fmt) {
     FILE *val_fd;
+    char pathBuffer[128];
     const char *path;
     int write_res;
     const char *val_str;
 
-    sprintf(path, gpio_val_path_fmt, gpio_num);
+    sprintf(pathBuffer, gpio_val_path_fmt, gpio_num);
+    path = pathBuffer;
 
     if ((val_fd = fopen(path, "w")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -147,13 +156,13 @@ int gpio_set_val(int gpio_num, GPIOValue val, const char *gpio_val_path_fmt) {
             break;
         default:
             printf("Invalid value: %d", val);
-            break;
+            return -2;
     }
 
     if ((write_res = fprintf(val_fd, "%s\n", val_str)) < 1) {
         printf("Failed to write to '%s' (%d)", path, write_res);
         fclose(val_fd);
-        return -2;
+        return -3;
     }
 
     fclose(val_fd);
@@ -162,11 +171,13 @@ int gpio_set_val(int gpio_num, GPIOValue val, const char *gpio_val_path_fmt) {
 
 GPIOEdgeDetect gpio_get_edge_detect(int gpio_num, const char *gpio_edge_path_fmt) {
     FILE *edge_fd;
+    char pathBuffer[128];
     const char *path;
-    char *text;
+    char text[9];
     GPIOEdgeDetect edge = GPIOEdgeDetectUnknown;
 
-    sprintf(path, gpio_edge_path_fmt, gpio_num);
+    sprintf(pathBuffer, gpio_edge_path_fmt, gpio_num);
+    path = pathBuffer;
 
     if ((edge_fd = fopen(path, "r")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -191,11 +202,13 @@ GPIOEdgeDetect gpio_get_edge_detect(int gpio_num, const char *gpio_edge_path_fmt
 
 int gpio_set_edge_detect(int gpio_num, GPIOEdgeDetect edge_detect, const char *gpio_edge_path_fmt) {
     FILE *edge_fd;
+    char pathBuffer[128];
     const char *path;
     int write_res;
     const char *edge_str;
 
-    sprintf(path, gpio_edge_path_fmt, gpio_num);
+    sprintf(pathBuffer, gpio_edge_path_fmt, gpio_num);
+    path = pathBuffer;
 
     if ((edge_fd = fopen(path, "w")) == NULL) {
         printf("Failed to open '%s' (error: %s)", path, strerror(errno));
@@ -217,13 +230,13 @@ int gpio_set_edge_detect(int gpio_num, GPIOEdgeDetect edge_detect, const char *g
             break;
         default:
             printf("Invalid value: %d", edge_detect);
-            break;
+            return -2;
     }
 
     if ((write_res = fprintf(edge_fd, "%s\n", edge_str)) < 1) {
         printf("Failed to write to '%s' (%d)", path, write_res);
         fclose(edge_fd);
-        return -2;
+        return -3;
     }
 
     fclose(edge_fd);

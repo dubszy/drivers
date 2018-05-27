@@ -16,7 +16,7 @@ private:
     GPIODeviceImpl *p_impl_;
 
 public:
-    GPIODevice(string name, int gpio_num);
+    GPIODevice(string name, unsigned int gpio_num);
 
     GPIOPinMode getPinMode() const;
     void setPinMode(GPIOPinMode pin_mode);

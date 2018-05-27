@@ -2,9 +2,9 @@
 #include <devices/core/interfacing/memory/gpio/gpio_mem.h>
 #include <devices/core/interfacing/memory/gpio/GPIOMemoryDevice.hpp>
 
-GPIODevice::GPIODeviceImpl::GPIODeviceImpl(int gpio_num) {
+GPIODevice::GPIODeviceImpl::GPIODeviceImpl(unsigned int gpio_num) {
     gpio_num_ = gpio_num;
-    if (!is_gpio_mapped) {
+    if (!is_gpio_mapped()) {
         gpio_map();
     }
 }
@@ -67,7 +67,7 @@ void GPIODevice::GPIODeviceImpl::setEdgeDetect(GPIOEdgeDetect edge_detect) {
             eds = GPIOEDSAsyncFallingEdge;
             break;
         default:
-            printf("Invalid value for GPIO edge detect: %s\n", edge_detect);
+            printf("Invalid value for GPIO edge detect: %d\n", edge_detect);
             break;
     }
 

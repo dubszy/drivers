@@ -17,7 +17,7 @@ typedef enum {
     ScaleRomer
 } TemperatureScale;
 
-class Thermometer : public Device {
+class Thermometer {
 
 private:
     Thermometer(const Thermometer&);
@@ -31,9 +31,7 @@ protected:
 
 public:
     Thermometer(TemperatureScale scale = ScaleCelsius, uint8_t decimal_precision = 2)
-      : scale_(scale), precision_(decimal_precision) {};
-
-    virtual ~Thermometer();
+      : scale_(scale), precision_(decimal_precision) {}
 
     float getTemperature() {
         float c = readTempFromDevice_();
@@ -60,6 +58,26 @@ public:
     }
 
     TemperatureScale getScale() { return scale_; }
+    string getScaleAsString() {
+        switch (scale_) {
+            case ScaleCelsius:
+                return "Celsius";
+            case ScaleDelisle:
+                return "Delisle";
+            case ScaleFahrenheit:
+                return "Fahrenheit";
+            case ScaleKelvin:
+                return "Kelvin";
+            case ScaleRankine:
+                return "Rankine";
+            case ScaleReaumur:
+                return "Reamur";
+            case ScaleRomer:
+                return "Romer";
+            default:
+                return "Invalid Scale";
+        }
+    }
     void setScale(TemperatureScale scale) { scale_ = scale; }
 };
 

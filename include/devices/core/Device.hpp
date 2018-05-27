@@ -9,18 +9,18 @@ using namespace std;
 
 class Device {
 
-private:
-    Device(const Device&);
-    Device& operator=(const Device&);
-
-protected:
-	string name_;
-
 public:
 	Device(string name = "Device") : name_(name) {};
 
 	string getName();
 	void setName(string name);
+
+private:
+	Device(const Device&);
+	Device& operator=(const Device&);
+
+protected:
+	string name_;
 };
 
 #endif /* _DEVICE_HPP_ */

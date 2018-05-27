@@ -9,7 +9,7 @@ private:
     int gpio_num_;
 
 public:
-    GPIODeviceImpl(int gpio_num);
+    GPIODeviceImpl(unsigned int gpio_num);
 
     virtual ~GPIODeviceImpl();
 

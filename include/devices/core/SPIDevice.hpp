@@ -2,8 +2,11 @@
 #define SPI_DEVICE_HPP
 
 #include <stdlib.h>
+#include <sstream>
 
 #include "Device.hpp"
+
+#include <logger/c++/Logger.hpp>
 
 class SPIDevice : public Device {
 
@@ -15,6 +18,8 @@ public:
 	int transact32(uint32_t *data, unsigned int length);
 	int transact64(uint64_t *data, unsigned int length);
 
+	string toString();
+
 private:
 	int fd_;
 	int channel_;
@@ -22,6 +27,8 @@ private:
 	uint8_t bitsPerWord_;
 
 	int transact_(void *data, unsigned int length);
+
+	Logger *log = Logger::forClass<SPIDevice>(LogLevelInfo);
 };
 
 

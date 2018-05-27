@@ -1,10 +1,22 @@
 #ifndef _DS18B20_HPP_
 #define _DS18B20_HPP_
 
-#include "Thermometer.hpp"
-#include "../../../core/OneWireDevice.hpp"
+#include <devices/environment/temperature/thermometers/Thermometer.hpp>
+#include <devices/core/OneWireDevice.hpp>
+
+#include <logger/c++/Logger.hpp>
 
 class DS18B20 : public Thermometer, public OneWireDevice {
+
+public:
+    DS18B20(string name,
+            TemperatureScale scale,
+            uint8_t decimalPrecision,
+            string deviceAddress);
+
+    DS18B20(string name, string deviceAddress);
+
+    string toString();
 
 private:
     DS18B20(const DS18B20&);
@@ -12,20 +24,7 @@ private:
 
     float readTempFromDevice_();
 
-public:
-    DS18B20(
-            string name = string("DS18B20"),
-            TemperatureScale scale = ScaleCelsius,
-            uint8_t decimal_precision = 2,
-            string device_addr = "")
-      : Thermometer(scale, decimal_precision),
-        OneWireDevice(name, OWFC_DS18B20, device_addr)
-      {}
-
-    DS18B20(string name, string device_addr)
-      : Thermometer(ScaleCelsius, 2),
-        OneWireDevice(name, OWFC_DS18B20, device_addr)
-      {}
+    Logger *log = Logger::forClass<DS18B20>(LogLevelInfo);
 };
 
 #endif /* _DS18B20_HPP_ */

@@ -5,6 +5,8 @@
 
 #include "Device.hpp"
 
+#include <logger/c++/Logger.hpp>
+
 typedef enum {
     OWFC_DS2401      = 0x01,
     OWFC_DS2411      = 0x01,
@@ -87,6 +89,18 @@ typedef enum {
 
 class OneWireDevice : public Device {
 
+public:
+    OneWireDevice(string name, OneWireFamilyCode familyCode, string address);
+
+    ~OneWireDevice();
+
+    size_t read(char *buf, size_t length);
+
+    OneWireFamilyCode getFamilyCode();
+    string getAddress();
+
+    string toString();
+
 private:
     OneWireDevice(const OneWireDevice&);
     OneWireDevice& operator=(const OneWireDevice);
@@ -94,12 +108,7 @@ private:
     class OneWireDeviceImpl;
     OneWireDeviceImpl *p_impl_;
 
-public:
-    OneWireDevice(string name, OneWireFamilyCode family_code, string addr);
-
-    ~OneWireDevice();
-
-    int read(char *buf, int length);
+    Logger *log = Logger::forClass<OneWireDevice>(LogLevelInfo);
 };
 
 #endif /* _ONE_WIRE_HPP_ */

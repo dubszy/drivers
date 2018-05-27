@@ -10,7 +10,7 @@ private:
     struct mem_block gpio;
 
 public:
-    GPIODeviceImpl(int gpio_num);
+    GPIODeviceImpl(unsigned int gpio_num);
 
     virtual ~GPIODeviceImpl();
 
