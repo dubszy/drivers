@@ -14,7 +14,8 @@ typedef enum {
     ScaleKelvin,
     ScaleRankine,
     ScaleReaumur,
-    ScaleRomer
+    ScaleRomer,
+    ScaleInvalid
 } TemperatureScale;
 
 class Thermometer {
@@ -58,6 +59,7 @@ public:
     }
 
     TemperatureScale getScale() { return scale_; }
+
     string getScaleAsString() {
         switch (scale_) {
             case ScaleCelsius:
@@ -78,6 +80,26 @@ public:
                 return "Invalid Scale";
         }
     }
+
+    static TemperatureScale getScaleFromString(string scale) {
+        if (scale == "ScaleCelsius") {
+            return ScaleCelsius;
+        } else if (scale == "ScaleDelisle") {
+            return ScaleDelisle;
+        } else if (scale == "ScaleFahrenheit") {
+            return ScaleFahrenheit;
+        } else if (scale == "ScaleKelvin") {
+            return ScaleKelvin;
+        } else if (scale == "ScaleRankine") {
+            return ScaleRankine;
+        } else if (scale == "ScaleReamur") {
+            return ScaleReaumur;
+        } else if (scale == "ScaleRomer") {
+            return ScaleRomer;
+        }
+        return ScaleInvalid;
+    }
+
     void setScale(TemperatureScale scale) { scale_ = scale; }
 };
 
