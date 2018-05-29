@@ -31,8 +31,14 @@ protected:
     virtual float readTempFromDevice_() = 0;
 
 public:
-    Thermometer(TemperatureScale scale = ScaleCelsius, uint8_t decimal_precision = 2)
-      : scale_(scale), precision_(decimal_precision) {}
+    Thermometer(TemperatureScale scale, uint8_t decimal_precision) {
+        if (scale == 0 || scale == ScaleInvalid) {
+            scale_ = ScaleCelsius;
+        }
+        if (decimal_precision == 0) {
+            decimal_precision = 2;
+        }
+    }
 
     float getTemperature() {
         float c = readTempFromDevice_();
