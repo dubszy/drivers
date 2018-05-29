@@ -18,18 +18,18 @@ DS18B20::DS18B20(string name, string deviceAddress)
 
 float DS18B20::readTempFromDevice_() {
 
-    const char *pattern = "t[=]\\d+";
-    char       buf[75];
+    const char *pattern = "t=[0-9]+";
+    char       buf[128] = "";
     regex_t    regex;
-    char       regex_buf[8];
+    char       regex_buf[8] = "";
     regmatch_t matches[2]; // Size must be 2 because matches[0] will be the whole string
-    char       error_buf[128];
+    char       error_buf[128] = "";
     float      temp;
 
     read(buf, 75);
 
-    if (regcomp(&regex, pattern, 0)) {
-        log->error("Failed to compile regex: %s\n", pattern);
+    if (regcomp(&regex, pattern, REG_EXTENDED)) {
+        log->error("Failed to compile regex: %s", pattern);
         // Return here, regfree should not get called after a failed regcomp
         return -501;
     }
@@ -37,20 +37,20 @@ float DS18B20::readTempFromDevice_() {
     int regex_res = regexec(&regex, buf, 2, matches, 0);
 
     if (!regex_res) {
-        memcpy(regex_buf, (buf + matches[1].rm_so + 2), static_cast<size_t>(matches[1].rm_eo - matches[1].rm_so + 2));
+        memcpy(regex_buf, (buf + matches[1].rm_so + 70), static_cast<size_t>(matches[1].rm_eo - matches[1].rm_so + 5));
         temp = strtof(regex_buf, nullptr);
     } else if (regex_res == REG_NOMATCH) {
-        log->error("Nothing matched regex pattern: %s\n", pattern);
+        log->error("Nothing matched regex pattern: %s", pattern);
         temp = -502;
     } else {
         regerror(regex_res, &regex, error_buf, sizeof(error_buf));
-        log->error("Failed to match regex: %s (error: %s)\n", pattern, error_buf);
+        log->error("Failed to match regex: %s (error: %s)", pattern, error_buf);
         temp = -503;
     }
 
     regfree(&regex);
 
-    return temp;
+    return temp / 1000;
 }
 
 string DS18B20::toString() {
