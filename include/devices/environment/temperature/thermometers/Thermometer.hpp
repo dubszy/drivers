@@ -31,13 +31,13 @@ protected:
     virtual float readTempFromDevice_() = 0;
 
 public:
-    Thermometer(TemperatureScale scale, uint8_t decimal_precision) {
-        if (scale == 0 || scale == ScaleInvalid) {
+    Thermometer(TemperatureScale scale, uint8_t decimalPrecision) {
+        if (scale == ScaleInvalid) {
             scale_ = ScaleCelsius;
+        } else {
+            scale_ = scale;
         }
-        if (decimal_precision == 0) {
-            decimal_precision = 2;
-        }
+        precision_ = decimalPrecision;
     }
 
     float getTemperature() {
