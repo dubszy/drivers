@@ -16,7 +16,7 @@ DS18B20::DS18B20(string name, string deviceAddress)
     log->debug("Instantiating new DS18B20");
 }
 
-float DS18B20::readTempFromDevice_() {
+double DS18B20::readTempFromDevice_() {
 
     const char *pattern = "t=[0-9]+";
     char       buf[128] = "";

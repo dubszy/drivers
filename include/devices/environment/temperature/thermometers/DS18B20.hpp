@@ -22,7 +22,7 @@ private:
     DS18B20(const DS18B20&);
     DS18B20& operator=(const DS18B20);
 
-    float readTempFromDevice_();
+    double readTempFromDevice_();
 
     Logger *log = Logger::forClass<DS18B20>(LogLevelInfo);
 };

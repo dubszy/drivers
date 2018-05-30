@@ -28,7 +28,7 @@ protected:
     TemperatureScale scale_;
     uint8_t precision_;
 
-    virtual float readTempFromDevice_() = 0;
+    virtual double readTempFromDevice_() = 0;
 
 public:
     Thermometer(TemperatureScale scale, uint8_t decimalPrecision) {
@@ -40,25 +40,25 @@ public:
         precision_ = decimalPrecision;
     }
 
-    float getTemperature() {
-        float c = readTempFromDevice_();
-        int p = pow(10, precision_);
+    double getTemperature() {
+        double c = readTempFromDevice_();
+        double p = pow(10, precision_);
 
         switch (scale_) {
             case ScaleCelsius:
-                return (floorf((c * p)) / p);
+                return (floor((c * p)) / p);
             case ScaleDelisle:
-                return (floorf((((100 - c) * 1.5) * p)) / p);
+                return (floor((((100 - c) * 1.5) * p)) / p);
             case ScaleFahrenheit:
-                return (floorf((((c * 1.8) + 32) * p)) / p);
+                return (floor((((c * 1.8) + 32) * p)) / p);
             case ScaleKelvin:
-                return (floorf(((c + 273.15) * p)) / p);
+                return (floor(((c + 273.15) * p)) / p);
             case ScaleRankine:
-                return (floorf((((c + 273.15) * 1.8) * p)) / p);
+                return (floor((((c + 273.15) * 1.8) * p)) / p);
             case ScaleReaumur:
-                return (floorf(((c * 0.8) * p)) / p);
+                return (floor(((c * 0.8) * p)) / p);
             case ScaleRomer:
-                return (floorf((((c * (21/40)) + 7.5) * p)) / p);
+                return (floor((((c * (21/40)) + 7.5) * p)) / p);
             default:
                 return INVALID_TEMP_SCALE;
         }
